@@ -7,4 +7,6 @@ add_executable(
 	main.c
 	grille.c
 	grille.h
+	moteur.c
+	moteur.h
 )

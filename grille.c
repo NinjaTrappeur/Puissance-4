@@ -1,17 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-enum Joueur{ 
-  A, B
-};
-//Coordonees pion + type (X ou O)
-struct Pion{
-  int x;
-  int y;
-  enum Joueur joueur;
-};
-
-
+#include "moteur.h"
 char** creationGrille(int nbLignes,int nbColonnes)
 {
   int i,j;
@@ -47,5 +36,16 @@ void liberationGrille(char** grille,int nbLignes, int nbColonnes)
 
 void affichageGrille(char** grille, int nbLignes, int nbColonnes)
 {
-
+  int i,j;
+  for(i=0;i<nbColonnes;++i)
+    printf("|%d|",i);//permet d'avoir la numérotation des colonnes
+  for(i=0;i<nbLignes;++i) // affichage du tableau
+    {
+      printf("\n");
+      for(j=0;j<nbColonnes;++j)
+	{
+	  printf("|%c|",grille[i][j]);
+	}
+    }
+  printf("\n");
 }
