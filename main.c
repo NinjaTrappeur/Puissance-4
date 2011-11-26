@@ -4,11 +4,16 @@
 //main max:30 lignes
 int main()
 {
-  int nbLignes=6;//nombre de lignes + nombre de colonnes
-  int nbColonnes=7;
+  int nbLignes=6,nbColonnes=7;//nombre de lignes + nombre de colonnes
   char** grille;
   grille=creationGrille(nbLignes,nbColonnes);//On alloue dynamiquement la grille
-  //printf("%c",grille[2][2]);  
-  //liberationGrille(grille,nbLignes,nbColonnes);//On libère la memoire prise par grille
-  return 0;
+  if (grille==NULL)
+    {
+      printf("Mémoire non alouée");
+      return -1;
+    }
+  else{
+    liberationGrille(grille,nbLignes,nbColonnes);//On libère la memoire prise par grille
+    return 0;
+  }
 }
