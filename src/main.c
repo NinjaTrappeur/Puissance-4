@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "grille.h"
 #include "moteur.h"
+#include "grille.h"
+
 //main max:30 lignes
 int main()
 {
@@ -15,7 +16,7 @@ int main()
     }
   else
     {
-      interfaceJoueur(grille,nbColonnes,nbLignes);
+      playerInterface(grille,nbColonnes,nbLignes);
       liberationGrille(grille,nbLignes,nbColonnes);//On libère la memoire prise par grille
       return 0;
     }
