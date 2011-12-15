@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include"moteur.h"
+#include"grille.h"
 
 int placeBawn(char** grille, int nbLignes, int nbColonnes, int colonneCible, struct Coord* Coord)
 {
@@ -38,75 +39,91 @@ int placeBawn(char** grille, int nbLignes, int nbColonnes, int colonneCible, str
 
 int winner(char** tab, int nbLines, int nbColumns,struct Coord* Coord)
 {
-  int win1=0,win2=0;
+  int win1=0,win2=0,win3=0,win4=0;
   win1=checkColumn(tab,nbLines,nbColumns,Coord);
   win2=checkLine(tab,nbLines,nbColumns,Coord);
-  return (win1|win2);
+  win3=checkDiagonalL(tab,nbLines,nbColumns,Coord);
+  win4=checkDiagonalR(tab,nbLines,nbColumns,Coord);
+  return (win1|win2|win3|win4);
 }
 
-/*int checkDiagonalL(char** tab,int nbLines,int nbColumns,struct Coord* Coord)
+int checkDiagonalL(char** tab,int nbLines,int nbColumns,struct Coord* Coord)
 {
-  int xmax = defineMax(nbColumns-1,Coord->x + 4);
-  int xmin = defineMin(0,Coord->x - 4);
-  int ymin = defineMin(0,Coord->y - 4);
-  int ymax = defineMax(nbLines-1,Coord->y + 4);
-  int i = min;
-  int win = 0;
-  int count = 0;
-  while(i<max && win==0)
+  int xmin,xmax,ymin,ymax,imin,imax,i,count,win=0;
+  ymin=Coord->y;
+  ymax=nbLines-1-Coord->y;
+  xmin=Coord->x;
+  xmax=nbColumns-1-Coord->x;
+  count=0;
+  imin=defineMin(defineMin(ymin,4),defineMin(xmin,4));
+  imax=defineMin(defineMin(ymax,4),defineMin(xmax,4));
+  for(i=imin;i>=-imax;--i)
     {
-      if(count>=4)
-	win = 1;
-      else if(tab[i])
+      if(tab[Coord->y-i][Coord->x-i]==Coord->pion)
+	++count;
+      else
+	count=0;
+      if(count==4)
+	win=1;
     }
-    }*/
+  return win;
+}
+int checkDiagonalR(char** tab,int nbLines,int nbColumns,struct Coord* Coord)
+{
+  int xmin,xmax,ymin,ymax,imin,imax,i,count,win=0;
+  ymin=Coord->y;
+  ymax=nbLines-1-Coord->y;
+  xmin=Coord->x;
+  xmax=nbColumns-1-Coord->x;
+  count=0;
+  imin=defineMin(defineMin(ymin,4),defineMin(xmax,4));
+  imax=defineMin(defineMin(ymax,4),defineMin(xmin,4));
+  for(i=imin;i>=-imax;--i)
+    {
+      if(tab[Coord->y-i][Coord->x+i]==Coord->pion)
+	++count;
+      else
+	count=0;
+      if(count==4)
+	win=1;
+    }
+  return win;
+}
 
 int checkColumn(char** tab, int nbLines, int nbColumns, struct Coord* Coord)
 {
-  int ymin = defineMin(0,Coord->y - 3);
-  int ymax = defineMax(nbLines-1,Coord->y + 3);  
+  int ymin = defineMax(0,Coord->y - 3);
+  int ymax = defineMin(nbLines-1,Coord->y + 3);  
   int i = ymin;
   int win = 0;
   int count = 0;
   do
     {
       if(tab[i][Coord->x]==Coord->pion)
-	{
-	  ++count;
-	}
+	++count;
       else
-	{
-	  count=0;
-	}
+	count=0;
       if(count==4)
-	{
-	  win=1;
-	}
+	win=1;
       i++;
     }while(i<=ymax && win==0);
   return win;
 }
 int checkLine(char** tab, int nbLines, int nbColumns, struct Coord* Coord)
 {
-  int xmin = defineMin(0,Coord->x - 3);
-  int xmax = defineMax(nbLines-1,Coord->x + 3);  
+  int xmin = defineMax(0,Coord->x - 3);
+  int xmax = defineMin(nbLines-1,Coord->x + 3);  
   int i = xmin;
   int win = 0;
   int count = 0;
   do
     {
       if(tab[Coord->y][i]==Coord->pion)
-	{
-	  ++count;
-	}
+	++count;
       else
-	{
-	  count=0;
-	}
+	count=0;
       if(count==4)
-	{
-	  win=1;
-	}
+	win=1;
       i++;
     }while(i<=xmax && win==0);
   return win;
@@ -114,7 +131,7 @@ int checkLine(char** tab, int nbLines, int nbColumns, struct Coord* Coord)
 
 int defineMin(int min, int value)
 {
-  if(value<min)
+  if(min<value)
     return min;
   else
     return value;
@@ -122,22 +139,14 @@ int defineMin(int min, int value)
 
 int defineMax(int max, int value)
 {
-  if(value>max)
+  if(max>value)
     return max;
   else
     return value;
 }
-int takeSmall(int x, int y)
-{
-  if(x<y)
-    return x;
-  else
-    return y;
-}
 void playerInterface(char** tab, int nbColumns, int nbLines)
 {
-  int i=0,gagne=0,choix,x,joueur;
-  char pion;
+  int i=0,choix,x,joueur=1;
   struct Coord Coord;
   while(winner(tab,nbLines,nbColumns,&Coord)==0)
     {
