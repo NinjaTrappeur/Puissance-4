@@ -1,6 +1,6 @@
 #ifndef GRID_H
 #define GRID_H
-char** creationGrille(int, int);
-void liberationGrille(char** grille,int,int);
-void affichageGrille(char** grille, int nbLignes, int nbColonnes);
+char** createGrid(int, int);
+void freeGrid(char**,int,int);
+void displayGrid(char** grid, int nbLines, int nbColumns);
 #endif

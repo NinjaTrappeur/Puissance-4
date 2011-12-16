@@ -1,49 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "engine.h"
-char** creationGrille(int nbLignes,int nbColonnes)
+char** createGrid(int nbLines,int nbColumns)
 {
   int i,j;
   //Déclaration et allocation de mémoire de la grille de jeu
-  char** grille = malloc(nbLignes*sizeof(char*)); // 7 trous dans une ligne
-  if(grille)// La mémoire de ligne a ete allouee
+  char** grid = malloc(nbLines*sizeof(char*)); // 7 trous dans une ligne
+  if(grid)// La mémoire de ligne a ete allouee
     {
-      for(i=0;i<nbLignes;++i)
+      for(i=0;i<nbLines;++i)
 	{
-	  grille[i]=malloc(nbColonnes*sizeof(char));
-	  if(grille[i]==NULL)
+	  grid[i]=malloc(nbColumns*sizeof(char));
+	  if(grid[i]==NULL)
 	    return NULL;
 	}
     }
   else
     return NULL; // La mémoire n'a pas été allouée...
   //Maintenant que la grille à étée crée il faut l'initialiser (elle sera vide par défaut)!
-  for(i=0;i<nbLignes;++i)
-    for(j=0;j<nbColonnes;++j)
-      grille[i][j]=' ';
-  return grille;
+  for(i=0;i<nbLines;++i)
+    for(j=0;j<nbColumns;++j)
+      grid[i][j]=' ';
+  return grid;
 }
 
 
-void liberationGrille(char** grille,int nbLignes, int nbColonnes)
+void freeGrid(char** grid,int nbLines, int nbColumns)
 {
   int i;
-  for(i=0;i<nbColonnes;++i)
-    free(grille[i]);// On libère d'abord les lignes
-  free(grille); //Puis les colonnes
+  for(i=0;i<nbColumns;++i)
+    free(grid[i]);// On libère d'abord les lignes
+  free(grid); //Puis les colonnes
 }
 
-void affichageGrille(char** grille, int nbLignes, int nbColonnes)
+void displayGrid(char** grid, int nbLines, int nbColumns)
 {
   int i,j;
-  for(i=0;i<nbColonnes;++i)
+  for(i=0;i<nbColumns;++i)
     printf("|%d|",i);//permet d'avoir la numérotation des colonnes
-  for(i=0;i<nbLignes;++i) // affichage du tableau
+  for(i=0;i<nbLines;++i) // affichage du tableau
     {
       printf("\n");
-      for(j=0;j<nbColonnes;++j)
+      for(j=0;j<nbColumns;++j)
 	{
-	  printf("|%c|",grille[i][j]);
+	  printf("|%c|",grid[i][j]);
 	}
     }
   printf("\n");

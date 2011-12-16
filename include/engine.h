@@ -4,7 +4,7 @@ struct Coord
 {
   int x;
   int y;
-  char pion;
+  char bawn;
 };
 
 int placeBawn(char** grille, int nbLignes, int nbColonnes, int colonneCible,struct Coord* Coord);
