@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 2.6)
+#ajoute des options au compilateur
+add_definitions(-g -Wall)
 #Déclaration du projet
 project(Puissance4)
 #Déclaration des chemins
@@ -6,8 +9,8 @@ include_directories(include)
 add_executable(
 	puissance4
 	src/main.c
-	src/grille.c
-	include/grille.h
-	src/moteur.c
-	include/moteur.h
+	src/grid.c
+	include/grid.h
+	src/engine.c 
+	include/engine.h
 )

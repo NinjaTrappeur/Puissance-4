@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include"moteur.h"
-#include"grille.h"
+#include"engine.h"
+#include"grid.h"
 
 int placeBawn(char** grille, int nbLignes, int nbColonnes, int colonneCible, struct Coord* Coord)
 {

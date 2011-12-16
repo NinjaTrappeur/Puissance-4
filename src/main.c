@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "moteur.h"
-#include "grille.h"
+#include "engine.h"
+#include "grid.h"
 
 //main max:30 lignes
 int main()

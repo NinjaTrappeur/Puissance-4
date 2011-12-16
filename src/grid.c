@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "moteur.h"
+#include "engine.h"
 char** creationGrille(int nbLignes,int nbColonnes)
 {
   int i,j;
   //Déclaration et allocation de mémoire de la grille de jeu
-  char* ligne = NULL;
   char** grille = malloc(nbLignes*sizeof(char*)); // 7 trous dans une ligne
   if(grille)// La mémoire de ligne a ete allouee
     {
