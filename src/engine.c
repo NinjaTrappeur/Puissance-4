@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include"engine.h"
 #include"grid.h"
 
@@ -144,13 +146,15 @@ int defineMax(int max, int value)
   else
     return value;
 }
-void playerInterface(char** tab, int nbColumns, int nbLines)
+
+void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log)
 {
   int i=0,choice,x,player=1;
   struct Coord Coord;
   do
     {
-      displayGrid(tab,nbLines,nbColumns);
+      if(noGui==0)
+	displayGrid(tab,nbLines,nbColumns);
       if(i%2==0)
 	{
 	  player=1;
@@ -171,11 +175,62 @@ void playerInterface(char** tab, int nbColumns, int nbLines)
       else
 	{
 	  x=placeBawn(tab,nbLines,nbColumns,choice,&Coord);
-	  if(x==-1)//si on ne peut pas placer le bawn dans cette ligne on incremente i deux fois pour que le même joueur joue
+	  if(log)
+	    logFunction(&Coord,i,0,player,x);
+	  if(x==-1)//si on ne peut pas placer le pion dans cette ligne on incremente i deux fois pour que le même joueur joue
 	    ++i;
 	}
       ++i;
     }while(winner(tab,nbLines,nbColumns,&Coord)==0);
-  displayGrid(tab,nbLines,nbColumns);
+  if(noGui==0)
+    displayGrid(tab,nbLines,nbColumns);
   printf("\nLe joueur %d gagne la partie!!\n",player);
+  if(log)
+    logFunction(&Coord,i,1,player,x);
+}
+
+void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int* log, int* quit)
+{
+  int i;
+  for(i=1;i<argc;++i)
+    {
+      if(strcmp(argv[i],"--noGui")==0)
+	*noGui=1;
+      else if(strcmp(argv[i],"--armagedonMode")==0)
+	*armagedonMode=1;
+      else if(strcmp(argv[i],"--help")==0)
+	{
+	  printf("\nAide:\n\n--armagedonMode : mode armagedon (lire readme pour plus d'infos)\n--help : aide\n--log : enregistrer le déroulement de la partie dans un fichier\n--noGui : jouer sans l'interface visuelle\n");
+	  *quit=1;
+	}
+      else if(strcmp(argv[i],"--log")==0)
+	*log=1;
+      else
+	{
+	  printf("\nOption inconnue, entrez --help pour voir la liste des options disponibles\n\n");
+	  *quit=1;
+	}
+    }
+}
+
+void logFunction(struct Coord* Coord,int i,int win,int player, int x)
+{
+  if(x!=-1)
+    {
+      FILE* logFile=NULL;
+      if(i==0)
+	logFile=fopen("log","w+");
+      else
+	logFile=fopen("log","a");
+      if(logFile!=NULL)
+	{
+	  if(win==0)
+	    fprintf(logFile,"Le joueur %d place son pion en [%d][%d]\n",player,Coord->x,Coord->y);
+	  else if(win==1)
+	    fprintf(logFile,"Le joueur %d à gagné la partie!!!!!!!\n",player);
+	  fclose(logFile);
+	}
+      else
+	printf("Imposssible d'ouvrir le fichier log\n");
+    }
 }
