@@ -3,6 +3,7 @@
 #include <string.h>
 #include"engine.h"
 #include"grid.h"
+#include "megafunMode.h"
 
 int placeBawn(char** grid, int nbLines, int nbColumns, int targetColumn, struct Coord* Coord)
 {
@@ -147,13 +148,14 @@ int defineMax(int max, int value)
     return value;
 }
 
-void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log)
+void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,int megafunModeOption)
 {
   int i=0,choice,x,player=1;
+  int nbBombs[2]={3,3};
   struct Coord Coord;
   do
     {
-      if(noGui==0)
+      if(!noGui)
 	displayGrid(tab,nbLines,nbColumns);
       if(i%2==0)
 	{
@@ -165,8 +167,10 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log)
 	  player=2;
 	  Coord.bawn='O';
 	}
+      if(megafunModeOption)
+	bombInterface(tab,nbColumns,nbLines,&Coord,&nbBombs[player-1],log,noGui);
       printf("\nJoueur %d, choisissez une colonne dans laquelle insérer votre pion:",player);
-      scanf("%d",&choice);
+      scanf("%d%*c",&choice);
       if(choice<0 || choice>nbColumns) //si choix fantaisiste
 	{
 	  printf("Veuillez choisir une colonne entre 0 et %d\n",nbColumns-1);
@@ -180,16 +184,18 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log)
 	  if(x==-1)//si on ne peut pas placer le pion dans cette ligne on incremente i deux fois pour que le même joueur joue
 	    ++i;
 	}
+      if(megafunModeOption)
+	megafunMode(tab,nbLines,nbColumns,&i,log);
       ++i;
     }while(winner(tab,nbLines,nbColumns,&Coord)==0);
-  if(noGui==0)
+  if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
   printf("\nLe joueur %d gagne la partie!!\n",player);
   if(log)
     logFunction(&Coord,i,1,player,x);
 }
 
-void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int* log, int* quit)
+void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int* log, int* quit, int* megafunMode)
 {
   int i;
   for(i=1;i<argc;++i)
@@ -200,11 +206,13 @@ void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int
 	*armagedonMode=1;
       else if(strcmp(argv[i],"--help")==0)
 	{
-	  printf("\nAide:\n\n--armagedonMode : mode armagedon (lire readme pour plus d'infos)\n--help : aide\n--log : enregistrer le déroulement de la partie dans un fichier\n--noGui : jouer sans l'interface visuelle\n");
+	  printf("\nAide:\n\n--megafunMode : mode megafun (lire readme pour plus d'infos)\n--help : aide\n--log : enregistrer le déroulement de la partie dans un fichier\n--noGui : jouer sans l'interface visuelle\n");
 	  *quit=1;
 	}
       else if(strcmp(argv[i],"--log")==0)
 	*log=1;
+      else if(strcmp(argv[i],"--megafunMode")==0)
+	*megafunMode=1;
       else
 	{
 	  printf("\nOption inconnue, entrez --help pour voir la liste des options disponibles\n\n");

@@ -13,4 +13,6 @@ add_executable(
 	include/grid.h
 	src/engine.c 
 	include/engine.h
+	src/megafunMode.c
+	include/megafunMode.h
 )

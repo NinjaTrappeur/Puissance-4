@@ -11,7 +11,7 @@
  */
 int main(int argc, char **argv)
 {
-  int nbLines=6,nbColumns=7,noGui=0,armagedonMode=0,log=0,quit=0;
+  int nbLines=6,nbColumns=7,noGui=0,armagedonMode=0,log=0,quit=0,megafunMode=0;
   char** grid;
   grid=createGrid(nbLines,nbColumns);
   if (grid==NULL)
@@ -21,10 +21,10 @@ int main(int argc, char **argv)
     }
   else
     {
-      defineParameters(argc,argv,&noGui,&armagedonMode,&log,&quit);
+      defineParameters(argc,argv,&noGui,&armagedonMode,&log,&quit,&megafunMode);
       if(!quit)
 	{
-	  playerInterface(grid,nbColumns,nbLines,noGui,log);
+	  playerInterface(grid,nbColumns,nbLines,noGui,log,megafunMode);
 	  freeGrid(grid,nbLines,nbColumns);
 	}
     }
