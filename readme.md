@@ -29,6 +29,7 @@ A la racine du projet:
 ##Mode megafun
 
 Le puissance 4 megafun est un puissance 4 amélioré. Les règles sont les mêmes que celles d'un puissance 4 classique plus les trois règles suivantes:
+
 * Bombes: chaque joueur dispose de trois bombes, chaque bombe peut détruire un pion situé en haut d'une colonne
 * Switch: déclanché aléatoirement, il intervertit les pions des deux joueurs
 * Coup critique: déclanché aléatoirement, permet au joueur qui le déclanche de rejouer.
