@@ -11,8 +11,13 @@ Jeu de puissance 4 basique sans IA.
 ##Compilation
 
 A la racine du projet:
+
     cmake -G Unix\ Makefiles
     make
+
+##Execution
+
+    ./puissance4 [Options]
 
 ##Options
 
