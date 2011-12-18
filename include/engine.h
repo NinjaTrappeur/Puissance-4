@@ -9,6 +9,7 @@ struct Coord
 
 int placeBawn(char** grille, int nbLignes, int nbColonnes, int colonneCible,struct Coord* Coord);
 void playerInterface(char** tab, int nbColumns, int nbLines, int noGui, int log,int megafunMode);
+int draw(char**grid, int nblines, int nbColumns);
 int winner(char** tab, int nbLines, int nbColumns, struct Coord* Coord);
 int checkDiagonalL(char** tab,int nbLines,int nbColumns,struct Coord* Coord);
 int defineMin(int min, int value);

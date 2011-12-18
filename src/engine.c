@@ -47,7 +47,21 @@ int winner(char** tab, int nbLines, int nbColumns,struct Coord* Coord)
   win2=checkLine(tab,nbLines,nbColumns,Coord);
   win3=checkDiagonalL(tab,nbLines,nbColumns,Coord);
   win4=checkDiagonalR(tab,nbLines,nbColumns,Coord);
+  if(Coord->y==0)  
+    if(draw(tab,nbLines,nbColumns))
+      {
+	return -1;
+      }
   return (win1|win2|win3|win4);
+}
+
+int draw(char**grid, int nblines, int nbColumns)
+{
+  int i;
+  for(i=0;i<nbColumns;++i)
+    if(grid[0][i]==' ')
+      return 0;
+  return -1;
 }
 
 int checkDiagonalL(char** tab,int nbLines,int nbColumns,struct Coord* Coord)
@@ -192,7 +206,10 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
     }while(winner(tab,nbLines,nbColumns,&Coord)==0);
   if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
-  printf("\nLe joueur %d gagne la partie!!\n",player);
+  if(winner(tab,nbLines,nbColumns,&Coord)==1)
+    printf("\nLe joueur %d gagne la partie!!\n",player);
+  else 
+    printf("\nEgalité!\n");
   if(log)
     logFunction(&Coord,i,1,player,x);
 }
