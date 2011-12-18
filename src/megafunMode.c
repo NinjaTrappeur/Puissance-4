@@ -82,18 +82,19 @@ void megafunMode(char** grid,int nbLines, int nbColumns,int* i,int log)
 
 void bombInterface(char** grid,int nbColumns,int nbLines,struct Coord* Coord, int *nbBombs, int log, int noGui)
 {
+  char sTarget[2];
   char choice;
   int target,ok=0;
   if(*nbBombs>0)
     {
       printf("\nIl vous reste %d bombes\nVoulez-vous utiliser une bombe?(o/n)\n",*nbBombs);
-      scanf("%c",&choice);
+      scanf("%c%*c",&choice);
       if(choice=='o'||choice=='O')
 	{
 	  printf("Où voulez-vous lancer la bombe?\n");
-	  scanf("%d",&target);
 	  while(!ok)
 	    {
+	      read(sTarget,2,&target);
 	      if(target<0 || target>nbColumns) //si choix fantaisiste
 		{
 		  printf("Veuillez choisir une colonne entre 0 et %d\n",nbColumns-1);

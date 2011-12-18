@@ -18,4 +18,6 @@ int checkColumn(char** tab, int nbLines, int nbColumns, struct Coord* Coord);
 int checkDiagonalR(char** tab,int nbLines,int nbColumns,struct Coord* Coord);
 void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int* log,int* quit,int* megafunMode);
 void logFunction(struct Coord* Coord,int i,int win,int player,int x);
+int read(char *string, int lenght, int* number);
+void cleanBuffer();
 #endif //ENGINE_H

@@ -14,7 +14,7 @@ int placeBawn(char** grid, int nbLines, int nbColumns, int targetColumn, struct 
 	{
 	  if(i==0)
 	    {
-	      printf("\n\nImpossible d'ajouter un bawn dans cette colonne, veuillez en choisir une autre\n\n");
+	      printf("\n\nImpossible d'ajouter un pion dans cette colonne, veuillez en choisir une autre\n\n");
 	      place=-1;
 	    }
 	  else
@@ -150,7 +150,8 @@ int defineMax(int max, int value)
 
 void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,int megafunModeOption)
 {
-  int i=0,choice,x,player=1;
+  int i=0,x,player=1,choice;
+  char cChoice[2];
   int nbBombs[2]={3,3};
   struct Coord Coord;
   do
@@ -170,7 +171,8 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
       if(megafunModeOption)
 	bombInterface(tab,nbColumns,nbLines,&Coord,&nbBombs[player-1],log,noGui);
       printf("\nJoueur %d, choisissez une colonne dans laquelle insérer votre pion:",player);
-      scanf("%d%*c",&choice);
+      if(read(cChoice,2,&choice)==0)
+	printf("Problème dans la fonction read!!!!!");
       if(choice<0 || choice>nbColumns) //si choix fantaisiste
 	{
 	  printf("Veuillez choisir une colonne entre 0 et %d\n",nbColumns-1);
@@ -186,7 +188,7 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
 	}
       if(megafunModeOption)
 	megafunMode(tab,nbLines,nbColumns,&i,log);
-      ++i;
+	++i;
     }while(winner(tab,nbLines,nbColumns,&Coord)==0);
   if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
@@ -240,5 +242,41 @@ void logFunction(struct Coord* Coord,int i,int win,int player, int x)
 	}
       else
 	printf("Imposssible d'ouvrir le fichier log\n");
+    }
+}
+
+void cleanBuffer()
+{
+  int c = 0;
+  while (c != '\n' && c != EOF)
+    {
+      c = getchar();
+    }
+}
+ 
+int read(char *string, int lenght, int* number)
+{
+  char *end = NULL;
+  if (fgets(string, lenght, stdin) != NULL)
+    {
+      end = strchr(string, '\n');
+      if (end != NULL)
+	{
+	  *end = '\0';
+        }
+      else
+        {
+	  cleanBuffer();
+        }
+      if(string[0]>=48&&string[0]<=57)
+	*number=atoi(string);
+      else
+	*number=-1;
+      return 1;
+    }
+  else
+    {
+      cleanBuffer();
+      return 0;
     }
 }
