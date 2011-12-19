@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include"engine.h"
-#include"grid.h"
+#include "engine.h"
+#include "grid.h"
 #include "megafunMode.h"
 
 int placeBawn(char** grid, int nbLines, int nbColumns, int targetColumn, struct Coord* Coord)
@@ -202,7 +202,7 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
 	}
       if(megafunModeOption)
 	megafunMode(tab,nbLines,nbColumns,&i,log);
-	++i;
+      i++;
     }while(winner(tab,nbLines,nbColumns,&Coord)==0);
   if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
@@ -229,7 +229,7 @@ void defineParameters(int argc, char** argv, int* noGui, int* megafunMode, int* 
       else if(strcmp(argv[i],"--log")==0)
 	*log=1;
       else if(strcmp(argv[i],"--megafunMode")==0)
-	*megafunMode=1;
+	  *megafunMode=1;
       else
 	{
 	  printf("\nOption inconnue, entrez --help pour voir la liste des options disponibles\n\n");

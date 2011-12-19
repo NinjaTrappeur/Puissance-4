@@ -3,12 +3,7 @@
 #include <string.h>
 #include "engine.h"
 #include "grid.h"
-/**
- *\author Félix Baylac-Jacqué
- *Main function, create grid and choose the interface.
- *
- *
- */
+
 int main(int argc, char **argv)
 {
   int nbLines=6,nbColumns=7,noGui=0,log=0,quit=0,megafunMode=0;
@@ -21,12 +16,12 @@ int main(int argc, char **argv)
     }
   else
     {
-      defineParameters(argc,argv,&noGui,&log,&quit,&megafunMode);
+      defineParameters(argc,argv,&noGui,&megafunMode,&log,&quit);
       if(!quit)
 	{
 	  playerInterface(grid,nbColumns,nbLines,noGui,log,megafunMode);
 	  freeGrid(grid,nbLines,nbColumns);
 	}
     }
-      return 0;
+  return 0;
 }

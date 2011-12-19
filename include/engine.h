@@ -103,7 +103,7 @@ int checkColumn(char** tab, int nbLines, int nbColumns, struct Coord* Coord);
 ///@return 1 if 4 bawns are in the diagonal, else 0
 int checkDiagonalR(char** tab,int nbLines,int nbColumns,struct Coord* Coord);
 
-///@fn void defineParameters(int argc, char** argv, int* noGui, int* magafunMode, int* log,int* quit,int* megafunMode)
+///@fn void defineParameters(int argc, char** argv, int* noGui, int* magafunMode, int* log,int* quit)
 ///@brief Parse data from argv and define parameters of execution
 ///@param argc number of parameters
 ///@param argv parameters
