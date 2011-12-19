@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 #ajoute des options au compilateur
-add_definitions(-g -Wall)
+add_definitions(-Wall)
 #Déclaration du projet
 project(Puissance4)
 #Déclaration des chemins

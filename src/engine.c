@@ -183,7 +183,7 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
 	  Coord.bawn='O';
 	}
       if(megafunModeOption)
-	bombInterface(tab,nbColumns,nbLines,&Coord,&nbBombs[player-1],log,noGui);
+	bombInterface(tab,nbColumns,nbLines,&nbBombs[player-1],log,noGui);
       printf("\nJoueur %d, choisissez une colonne dans laquelle insérer votre pion:",player);
       if(read(cChoice,2,&choice)==0)
 	printf("Problème dans la fonction read!!!!!");
@@ -214,15 +214,13 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
     logFunction(&Coord,i,1,player,x);
 }
 
-void defineParameters(int argc, char** argv, int* noGui, int* armagedonMode, int* log, int* quit, int* megafunMode)
+void defineParameters(int argc, char** argv, int* noGui, int* megafunMode, int* log, int* quit)
 {
   int i;
   for(i=1;i<argc;++i)
     {
       if(strcmp(argv[i],"--noGui")==0)
 	*noGui=1;
-      else if(strcmp(argv[i],"--armagedonMode")==0)
-	*armagedonMode=1;
       else if(strcmp(argv[i],"--help")==0)
 	{
 	  printf("\nAide:\n\n--megafunMode : mode megafun (lire readme pour plus d'infos)\n--help : aide\n--log : enregistrer le déroulement de la partie dans un fichier\n--noGui : jouer sans l'interface visuelle\n");

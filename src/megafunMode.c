@@ -50,7 +50,7 @@ void criticalStrike(int* i,int log)
     }
 }
 
-void useBomb(char** grid, int nbLines, int nbColumns, int target,struct Coord* Coord,int log)
+void useBomb(char** grid, int nbLines, int nbColumns, int target,int log)
 {
   int place=0,i=0;
   FILE* logFile=NULL;
@@ -80,7 +80,7 @@ void megafunMode(char** grid,int nbLines, int nbColumns,int* i,int log)
   switchBawns(grid,nbLines,nbColumns,log);
 }
 
-void bombInterface(char** grid,int nbColumns,int nbLines,struct Coord* Coord, int *nbBombs, int log, int noGui)
+void bombInterface(char** grid,int nbColumns,int nbLines, int *nbBombs, int log, int noGui)
 {
   char sTarget[2];
   char choice;
@@ -102,7 +102,7 @@ void bombInterface(char** grid,int nbColumns,int nbLines,struct Coord* Coord, in
 	      else
 		  ok=1;
 	    }
-	  useBomb(grid,nbLines,nbColumns,target,Coord,log);
+	  useBomb(grid,nbLines,nbColumns,target,log);
 	  if(!noGui)
 	    displayGrid(grid,nbLines,nbColumns);
 	  *nbBombs=*nbBombs-1;
