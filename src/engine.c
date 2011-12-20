@@ -164,7 +164,7 @@ int defineMax(int max, int value)
 
 void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,int megafunModeOption)
 {
-  int i=0,x,player=1,choice;
+  int i=0,x,player=1,choice,win=0;
   char cChoice[2];
   int nbBombs[2]={3,3};
   struct Coord Coord;
@@ -188,7 +188,7 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
       printf("\nJoueur %d, choisissez une colonne dans laquelle insérer votre pion:",player);
       if(read(cChoice,2,&choice)==0)
 	printf("Problème dans la fonction read!!!!!");
-      if(choice<0 || choice>nbColumns) //si choix fantaisiste
+      if(choice<0 || choice>nbColumns-1) //si choix fantaisiste
 	{
 	  printf("Veuillez choisir une colonne entre 0 et %d\n",nbColumns-1);
 	  ++i;//on incrémente i deux fois afin que ce soit le même joueur qui rejoue
@@ -198,13 +198,16 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
 	  x=placeBawn(tab,nbLines,nbColumns,choice,&Coord);
 	  if(log)
 	    logFunction(&Coord,i,0,player,x);
-	  if(x==-1)//si on ne peut pas placer le pion dans cette ligne on incremente i deux fois pour que le même joueur joue
-	    ++i;
+	  if(x==-1)
+	    {
+	      win=winner(tab, nbLines, nbColumns,&Coord);
+	      ++i;
+	    }
 	}
       if(megafunModeOption)
 	megafunMode(tab,nbLines,nbColumns,&i,log);
       i++;
-    }while(winner(tab,nbLines,nbColumns,&Coord)==0);
+    }while(win==0);
   system("clear");
   if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
