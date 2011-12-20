@@ -95,7 +95,7 @@ void bombInterface(char** grid,int nbColumns,int nbLines, int *nbBombs, int log,
 	  while(!ok)
 	    {
 	      read(sTarget,2,&target);
-	      if(target<0 || target>nbColumns) //si choix fantaisiste
+	      if(target<0 || target>nbColumns-1) //si choix fantaisiste
 		{
 		  printf("Veuillez choisir une colonne entre 0 et %d\n",nbColumns-1);
 		}

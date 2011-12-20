@@ -170,7 +170,6 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
   struct Coord Coord;
   do
     {
-      system("clear");
       if(!noGui)
 	displayGrid(tab,nbLines,nbColumns);
       if(i%2==0)
@@ -202,11 +201,11 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
 	  if(x==-1)
 	    ++i;
 	}
+      system("clear");
       if(megafunModeOption)
 	megafunMode(tab,nbLines,nbColumns,&i,log);
       i++;
     }while(win==0);
-  system("clear");
   if(!noGui)
     displayGrid(tab,nbLines,nbColumns);
   if(winner(tab,nbLines,nbColumns,&Coord)==1)
