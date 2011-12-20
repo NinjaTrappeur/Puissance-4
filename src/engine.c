@@ -196,13 +196,11 @@ void playerInterface(char** tab, int nbColumns, int nbLines,int noGui, int log,i
       else
 	{
 	  x=placeBawn(tab,nbLines,nbColumns,choice,&Coord);
+	  win=winner(tab, nbLines, nbColumns,&Coord);
 	  if(log)
 	    logFunction(&Coord,i,0,player,x);
 	  if(x==-1)
-	    {
-	      win=winner(tab, nbLines, nbColumns,&Coord);
-	      ++i;
-	    }
+	    ++i;
 	}
       if(megafunModeOption)
 	megafunMode(tab,nbLines,nbColumns,&i,log);
